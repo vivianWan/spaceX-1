@@ -16,7 +16,7 @@ SELECT * FROM XTK78082.SPACEXTBL
  * Task 3
  * Display the total payload mass carried by boosters launched by NASA (CRS)
  */
-SELECT SUM(PAYLOAD_MASS__KG_) 
+SELECT SUM(PAYLOAD_MASS__KG_) AS Total_Payload_Mass
 	FROM XTK78082.SPACEXTBL 
 	WHERE CUSTOMER = 'NASA (CRS)';
 
@@ -24,7 +24,7 @@ SELECT SUM(PAYLOAD_MASS__KG_)
  * Task 4
  * Display average payload mass carried by booster version F9 v1.1
  */
-SELECT AVG(PAYLOAD_MASS__KG_) 
+SELECT AVG(PAYLOAD_MASS__KG_) AS AVG_PAYLOAD_MASS
 	FROM XTK78082.SPACEXTBL 
 	WHERE BOOSTER_VERSION = 'F9 v1.1';
 
@@ -76,3 +76,16 @@ SELECT BOOSTER_VERSION, LAUNCH_SITE, LANDING__OUTCOME
 	FROM XTK78082.SPACEXTBL
     WHERE LANDING__OUTCOME LIKE 'Failure (drone ship)'
         AND Date BETWEEN '2015-01-01' AND '2015-12-31';
+        
+
+/*
+ * Task 10
+ * Rank the count of landing outcomes (such as Failure (drone ship) or 
+ * Success (ground pad)) between the date 2010-06-04 and 2017-03-20, 
+ * in descending order
+ */
+SELECT LANDING__OUTCOME, COUNT(LANDING__OUTCOME) AS COUNTS
+	FROM XTK78082.SPACEXTBL
+	WHERE DATE BETWEEN '2010-06-04' AND '2017-03-20'
+	GROUP BY LANDING__OUTCOME 
+	ORDER BY COUNTS DESC
